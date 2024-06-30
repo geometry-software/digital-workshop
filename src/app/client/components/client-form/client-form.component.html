@@ -1,0 +1,162 @@
+<div *nzModalTitle class="form-modal-title">{{ formTitle }} {{ formType === FormType.CREATE ? 'new client' : editFormValue.name }}</div>
+
+<ng-container *ngIf="formInitializationState$ | async as state">
+  <ng-container *ngTemplateOutlet="state === FormInitialization.LOADED ? layout : loading; context: { $implicit: state }"></ng-container>
+</ng-container>
+
+<ng-template #layout>
+  <div [@fadeInOnEnter]>
+    <form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="submit()">
+      <nz-form-item>
+        <nz-form-label>Name</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your username!">
+          <input nz-input formControlName="name" placeholder="input placeholder" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Phone</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your text!">
+          <input nz-input formControlName="phone" placeholder="input placeholder" [prefix]="phoneMaskConfig.prefix" [mask]="phoneMaskConfig.mask" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="vehicles-layout">
+        <div class="flex justify-end mt-[5px]">
+          <button class="flex items-center" nz-button nzSize="small" nzType="primary" (click)="addRow($event)">add vehicle</button>
+        </div>
+        <div formArrayName="vehicles" *ngFor="let item of form.controls.vehicles.controls; let i = index">
+          <ng-container [formGroupName]="i">
+            <div nz-row nzGutter="12">
+              <div nz-col nzSpan="3" class="flex justify-between gap-2">
+                <div class="flex justify-center gap-2 mt-[30px]">
+                  <button
+                    nz-button
+                    nzType="text"
+                    nzValue="small"
+                    nzShape="circle"
+                    nz-popconfirm
+                    nzPopconfirmTitle="Remove vehicles?"
+                    nzPopconfirmPlacement="bottom"
+                    nzOkText="Remove"
+                    nzOkDanger="true"
+                    (nzOnConfirm)="removeRow(i)"
+                    *ngIf="form.controls.vehicles.controls.length > 1"
+                  >
+                    <i nz-icon nzType="minus-circle" nzTheme="outline"></i>
+                  </button>
+                </div>
+                <div class="flex justify-center items-center text-[16px]">{{ i + 1 }}</div>
+              </div>
+              <div nz-col nzSpan="7">
+                <nz-form-item>
+                  <nz-form-label>Type</nz-form-label>
+                  <nz-form-control nzErrorTip="Please input type!">
+                    <nz-select
+                      nzPlaceHolder="Select type"
+                      formControlName="type"
+                      (ngModelChange)="requestVehicleData(i, ClientFormVehicleSelect.TYPE, $event)"
+                    >
+                      <nz-option *ngFor="let option of vehicleBodyType | keyvalue" [nzValue]="option.value" [nzLabel]="option.key"> </nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <div nz-col nzSpan="7">
+                <nz-form-item>
+                  <nz-form-label>Brand</nz-form-label>
+                  <nz-form-control nzErrorTip="Please input type!">
+                    <nz-select
+                      nzShowSearch
+                      nzPlaceHolder="Select brand"
+                      formControlName="brand"
+                      [nzDisabled]="!vehicleListByIndexMap.get(i)"
+                      [nzLoading]="!vehicleListByIndexMap.get(i) && form.controls.vehicles.at(i).value.type"
+                      [compareWith]="compareBrand"
+                      (ngModelChange)="requestVehicleData(i, ClientFormVehicleSelect.BRAND, $event)"
+                    >
+                      <nz-option *ngFor="let option of vehicleListByIndexMap.get(i)" [nzValue]="option" [nzLabel]="option.MakeName.toUpperCase()">
+                      </nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="7">
+                <nz-form-item>
+                  <nz-form-label>Model</nz-form-label>
+                  <nz-form-control nzErrorTip="Please input type!">
+                    <nz-select
+                      nzShowSearch
+                      nzPlaceHolder="Select model"
+                      [nzDisabled]="!modelListByIndexMap.get(i)"
+                      [nzLoading]="!modelListByIndexMap.get(i) && !!form.controls.vehicles.at(i).value.brand"
+                      [compareWith]="compareModel"
+                      formControlName="model"
+                    >
+                      <nz-option nzLabel="New model"> <input nz-input placeholder="input placeholder" /></nz-option>
+                      <nz-option *ngFor="let option of modelListByIndexMap.get(i)" [nzValue]="option" [nzLabel]="option.Model_Name.toUpperCase()">
+                      </nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <div nz-row nzGutter="12">
+              <div nz-col nzSpan="3"></div>
+              <div nz-col nzSpan="7"></div>
+              <div nz-col nzSpan="7">
+                <nz-form-item>
+                  <nz-form-label>Year</nz-form-label>
+                  <nz-form-control nzErrorTip="Please input your username!">
+                    <input nz-input type="number" formControlName="year" placeholder="input placeholder" mask="0000" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="7">
+                <nz-form-item>
+                  <nz-form-label>Plate</nz-form-label>
+                  <nz-form-control nzErrorTip="Please input your username!">
+                    <input nz-input formControlName="plate" placeholder="input placeholder" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+          </ng-container>
+          <div class="vehicles-divider" *ngIf="form.controls.vehicles.controls.length !== i + 1"></div>
+        </div>
+      </div>
+
+      <div class="flex justify-between mt-6">
+        <div>
+          <button nz-button nzSize="large" type="button" nz-dropdown [nzDropdownMenu]="menu">
+            Actions
+            <span nz-icon nzType="down"></span>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="downloadPdf()">
+                <span class="mr-[8px]" nz-icon nzType="file-pdf"></span>
+                Update log
+              </li>
+              <li nz-menu-item (click)="archive()">
+                <span class="mr-[8px]" nz-icon nzType="diff"></span>
+                Change status
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+        <div class="flex gap-4">
+          <button nz-button nzType="default" type="button" nzSize="large" (click)="close()">Cancel</button>
+          <button nz-button nzType="primary" nzSize="large" [nzLoading]="(getFormUploadState$ | async).loading">{{ formTitle }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #loading let-context>
+  <div class="flex justify-center" *ngIf="context === FormInitialization.LOADING">
+    <nz-spin nzSimple></nz-spin>
+  </div>
+</ng-template>

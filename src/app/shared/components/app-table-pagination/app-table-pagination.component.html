@@ -1,0 +1,32 @@
+<div class="flex justify-between items-center mt-6">
+  <div class="flex items-center gap-2">
+    <nz-select nzSize="default" [ngModel]="size" (ngModelChange)="changeSize($event)">
+      <nz-option *ngFor="let option of paginationPayload.options.sizeList" [nzValue]="option" [nzLabel]="option"> </nz-option>
+    </nz-select>
+    <div>
+      {{ paginationPayload.options.current }} / {{ paginationPayload.options.total }} {{ paginationPayload.options.title }}
+      <span style="color: #555; font-size: 0.8em" *ngIf="paginationPayload.responseTime">({{ paginationPayload.responseTime }} sec.)</span>
+    </div>
+  </div>
+  <div class="flex gap-2">
+    <button
+      nz-button
+      nzType="default"
+      [disabled]="paginationControl.value.query === 'custom' || paginationControl.value.size === paginationPayload.options.current"
+      (click)="changePage('previous')"
+    >
+      <span nz-icon nzType="left"></span>
+    </button>
+    <button nz-button nzType="default" (click)="changePage('first')">
+      <span nz-icon nzType="reload"></span>
+    </button>
+    <button
+      nz-button
+      nzType="default"
+      [disabled]="paginationControl.value.query === 'custom' ? true : paginationPayload.options.current === paginationPayload.options.total"
+      (click)="changePage('next')"
+    >
+      <span nz-icon nzType="right"></span>
+    </button>
+  </div>
+</div>

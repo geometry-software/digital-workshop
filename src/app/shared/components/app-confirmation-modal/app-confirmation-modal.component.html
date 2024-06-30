@@ -1,0 +1,8 @@
+<div *nzModalTitle class="form-modal-title">{{ modalData.title }}</div>
+
+<div *ngIf="modalData.text" class="confirmation-modal-text">{{ modalData.text }}</div>
+
+<div class="flex justify-end gap-2">
+  <button nz-button nzType="default" type="button" (click)="modal.close()">Cancel</button>
+  <button nz-button nzType="primary" (click)="modal.close(true)">{{ modalData.confirm ?? 'Ok' }}</button>
+</div>

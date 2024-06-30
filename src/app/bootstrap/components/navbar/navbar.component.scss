@@ -1,0 +1,44 @@
+.logo-container {
+  margin-top: 13px;
+  margin-bottom: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  height: 55px;
+  width: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 50%;
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+  padding-left: 15px;
+  font-size: 1.6em;
+  font-weight: 500;
+  color: rgb(81, 79, 91);
+}
+
+.active-link {
+  background-color: #1890ff;
+}
+
+.content-layout {
+  margin: 15px;
+  margin-bottom: 0;
+  padding: 15px;
+  background: #fff;
+  min-height: 360px;
+  border-radius: 8px;
+  height: calc(100vh - 148px);
+}
+
+nz-footer {
+  text-align: center;
+}

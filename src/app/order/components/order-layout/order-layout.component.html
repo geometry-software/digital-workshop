@@ -1,0 +1,3 @@
+<app-layout-toolbar [toolbarSettings]="toolbarSettings" [actionsControl]="actionsControl"></app-layout-toolbar>
+<app-order-form *ngIf="isFormLayout" [layoutService]="layoutService" [formUrl]="formUrl"></app-order-form>
+<app-order-list *ngIf="isListLayout" [layoutService]="layoutService"></app-order-list>

@@ -1,0 +1,66 @@
+:host {
+  .login {
+    &__layout {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: no-repeat center center url('/assets/images/keagan-henman-zE_x-1vM5TE-unsplash.jpg');
+      background-size: 100% 100%;
+    }
+    &__container {
+      padding: 9vh 5vw;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      background-color: white;
+      border-radius: 8px;
+    }
+    &__title {
+      min-width: 100%;
+      font-weight: 600;
+      color: rgb(81, 79, 91);
+      font-size: 2.2em;
+      font-family: 'Inter';
+    }
+    &__input {
+      width: 100%;
+      margin-top: 50px;
+      margin-bottom: 20px;
+      width: 200px;
+    }
+    &__error {
+      padding-top: 20px;
+      color: crimson;
+      font-weight: 500;
+      height: 30px;
+    }
+    &__button {
+      width: 200px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      border: none;
+      background-size: 300% 100%;
+      background-image: linear-gradient(to right, #2874a6, #2e86c1, #2980b9, #5dade2);
+      box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
+      border-radius: 50px !important;
+      -o-transition: all 0.4s ease-in-out;
+      -webkit-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+    &__button:hover {
+      background-position: 100% 0;
+      -o-transition: all 0.4s ease-in-out;
+      -webkit-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+    &__button:disabled {
+      background-image: linear-gradient(to right, #777, #999);
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<div style="height: 100vh">
+  <nz-layout>
+    <nz-sider nzCollapsible nzWidth="200px">
+      <div class="logo-container">
+        <div class="logo">
+          <img src="../../../../assets/images/logo/logo.png" width="42px" />
+        </div>
+      </div>
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <ng-container *ngFor="let item of menuOptions">
+          <li nz-menu-item routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: false }"
+            [routerLink]="item.link">
+            <span nz-icon [nzType]="item.icon"></span>
+            <span>{{ item.title }}</span>
+          </li>
+        </ng-container>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header class="header-title">Digital Workshop</nz-header>
+      <div class="content-layout">
+        <router-outlet (activate)="onActivateRouter()"></router-outlet>
+      </div>
+      <nz-footer>Digital Workshop by Geometry, 2024</nz-footer>
+    </nz-layout>
+  </nz-layout>
+</div>

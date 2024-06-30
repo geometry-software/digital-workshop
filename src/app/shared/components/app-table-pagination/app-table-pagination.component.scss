@@ -1,0 +1,12 @@
+button {
+  display: flex !important;
+  justify-content: center;
+  width: 50px;
+  min-height: 30px !important;
+  border-radius: 0px !important;
+}
+:host {
+  ::ng-deep nz-select {
+    width: 60px;
+  }
+}

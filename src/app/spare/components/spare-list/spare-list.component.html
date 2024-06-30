@@ -1,0 +1,56 @@
+<app-layout-toolbar [toolbarSettings]="toolbarSettings"></app-layout-toolbar>
+
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-select nzAllowClear nzPlaceHolder="Select a body type" [formControl]="bodyType">
+      <nz-option *ngFor="let option of vehicleBodyType | keyvalue" [nzValue]="option.value" [nzLabel]="option.key.toUpperCase()">
+        {{ option.value.toUpperCase() }}
+      </nz-option>
+    </nz-select>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-select
+      nzShowSearch
+      nzAllowClear
+      nzPlaceHolder="Select a brand"
+      [nzDisabled]="!(vehiclesList$ | async)"
+      [nzLoading]="!(vehiclesList$ | async) && bodyType.value"
+      [formControl]="vehicleName"
+    >
+      <nz-option *ngFor="let option of (vehiclesList$ | async)?.Results" [nzValue]="option" [nzLabel]="option.MakeName">
+        {{ option.MakeName }}
+      </nz-option>
+    </nz-select>
+  </nz-form-item>
+</form>
+
+<ng-container *ngIf="manufacturerDetails$ | async as data">
+  <nz-table
+    #nzTable
+    [nzScroll]="{ y: '50vh' }"
+    [nzData]="data"
+    [nzLoading]="!data"
+    nzTableLayout="fixed"
+    nzShowPagination="false"
+    [nzFrontPagination]="false"
+  >
+    <thead>
+      <tr>
+        <th>Manufacturer</th>
+        <th>Country, City</th>
+        <th>Phone</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let item of nzTable.data">
+        <tr>
+          <td>{{ item.Mfr_Name }}</td>
+          <td>{{ item.Country }}, {{ item.City }}</td>
+          <td>{{ item.ContactPhone }}</td>
+          <td>{{ item.ContactEmail }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</ng-container>

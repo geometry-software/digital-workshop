@@ -1,0 +1,68 @@
+[
+  {
+    "key": "client",
+    "type": "text",
+    "label": "Client",
+    "placeholder": "eg. name or other personal data",
+    "validations": [
+      {
+        "name": "required",
+        "message": "required"
+      },
+      {
+        "name": "minlength",
+        "message": "min 10 symbols",
+        "value": 10
+      },
+      {
+        "name": "maxlength",
+        "message": "max 50 symbols",
+        "value": 50
+      }
+    ]
+  },
+  {
+    "key": "name",
+    "type": "text",
+    "label": "User",
+    "placeholder": "eg. name or other personal data",
+    "validations": [
+      {
+        "name": "required",
+        "message": "required"
+      },
+      {
+        "name": "minlength",
+        "message": "min 10 symbols",
+        "value": 10
+      },
+      {
+        "name": "maxlength",
+        "message": "max 50 symbols",
+        "value": 50
+      }
+    ]
+  },
+  {
+    "key": "fix",
+    "type": "text",
+    "label": "Fix",
+    "placeholder": "what spare, eg. engine",
+    "validations": [
+      {
+        "name": "required",
+        "message": "required"
+      },
+      {
+        "name": "minlength",
+        "message": "min 5 symbols",
+        "value": 5
+      },
+      {
+        "name": "maxlength",
+        "message": "max 100 symbols",
+        "value": 100
+      }
+    ]
+  }
+]

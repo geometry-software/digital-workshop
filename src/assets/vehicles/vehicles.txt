@@ -1,0 +1,45 @@
+The National Highway Traffic Safety Administration
+https://www.nhtsa.gov/about-nhtsa
+https://vpic.nhtsa.dot.gov/api
+
+Get Makes for Spare Type: car
+https://vpic.nhtsa.dot.gov/api/spares/GetMakesForVehicleType/car?format=json
+
+Get Makes for Spare Type: moto
+https://vpic.nhtsa.dot.gov/api/spares/GetMakesForVehicleType/moto?format=json
+
+Get Makes for Spare Type: truck
+https://vpic.nhtsa.dot.gov/api/spares/GetMakesForVehicleType/truck?format=json
+
+Get Makes for Spare Type: bus
+https://vpic.nhtsa.dot.gov/api/spares/GetMakesForVehicleType/bus?format=json
+
+Get Models for MakeId
+https://vpic.nhtsa.dot.gov/api/spares/GetModelsForMakeId/568?format=json
+
+Get Models for Make Id and a combination of Year
+https://vpic.nhtsa.dot.gov/api/spares/GetModelsForMakeIdYear/makeId/474/modelyear/2015?format=json
+
+Get Spare Types for Make by Id
+https://vpic.nhtsa.dot.gov/api/spares/GetVehicleTypesForMakeId/450?format=json
+
+Get Manufacturer Details
+https://vpic.nhtsa.dot.gov/api/spares/getmanufacturerdetails/tesla?format=json
+
+Get Equipment Plant Codes
+https://vpic.nhtsa.dot.gov/api/spares/GetEquipmentPlantCodes?year=2020&equipmentType=1&reportType=all&format=json
+
+Year
+Only years 2016 and above are supported
+
+Equipment Type
+1 - Tires
+3 - Brake Hoses
+13 - Glazing
+16 - Retread
+
+Report Type
+New - The Equipment Plant Code was assigned during the selected year
+Updated - The Equipment Plant data was modified during the selected year
+Closed - The Equipment Plant is no longer Active
+All - All Equipment Plant Codes regardless of year, including their status (active or closed)

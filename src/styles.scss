@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* LAYOUT */
+
+.list-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(81, 79, 91);
+}
+
+.confirmation-modal-text {
+  font-size: 16px;
+  color: rgb(81, 79, 91);
+}
+
+.form-modal-title {
+  font-size: 20px;
+  color: rgb(81, 79, 91);
+}
+
+.form-modal-desc {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* FORM */
+
+nz-select {
+  width: 100%;
+}
+
+button {
+  display: flex !important;
+  align-items: center !important;
+  border-radius: 8px !important;
+}

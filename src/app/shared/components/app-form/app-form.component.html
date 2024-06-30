@@ -1,0 +1,49 @@
+<ng-container *ngIf="formLayout$ | async as formLayout">
+  <form [formGroup]="formLayout.formGroup" (ngSubmit)="formSubmit.next(formLayout.formGroup)" class="form-layout">
+    <ng-container *ngFor="let formControl of formLayout.formControls">
+      <ng-container [ngSwitch]="formControl.type">
+        <!-- TEXT -->
+        <ng-container *ngSwitchCase="'text'">
+          <div class="form-field">
+            <label [for]="formControl.key" class="block text-sm font-medium leading-6 text-gray-900">{{
+              formControl.label }}</label>
+            <div class="mt-2">
+              <input [id]="formControl.key" [name]="formControl.key" [type]="formControl.type"
+                [placeholder]="formControl.placeholder" [autocomplete]="formControl.type"
+                [formControlName]="formControl.key"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+            </div>
+          </div>
+        </ng-container>
+        <!-- NUMBER -->
+        <ng-container *ngSwitchCase="'number'">
+          <div class="form-field">
+            <label [for]="formControl.key" class="block text-sm font-medium leading-6 text-gray-900">{{
+              formControl.placeholder }}</label>
+            <div class="relative mt-2 rounded-md shadow-sm">
+              <input type="number" [name]="formControl.key" [id]="formControl.key"
+                [placeholder]="formControl.placeholder" [formControlName]="formControl.key"
+                class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                [placeholder]="formControl.placeholder" />
+              <div *ngIf="formControl.options" class="absolute inset-y-0 right-0 flex items-center">
+                <label [for]="formControl.key" class="sr-only">{{ formControl.placeholder }}</label>
+                <select [id]="formControl.key" [name]="formControl.key"
+                  class="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+                  <option *ngFor="let option of formControl.options">{{ option }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <!-- SELECT -->
+        <ng-container *ngSwitchCase="'select'">
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <div class="form-field">
+      <div class="action-bar">
+        <button class="submit-button" type="submit" [disabled]="!formLayout.formGroup.valid">Send</button>
+      </div>
+    </div>
+  </form>
+</ng-container>

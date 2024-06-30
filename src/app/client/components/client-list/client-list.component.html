@@ -1,0 +1,50 @@
+<ng-container *ngIf="tableData$ | async as data; else loading">
+  <nz-table
+    #nzTable
+    [nzData]="data"
+    [nzLoading]="(listDownloadState$ | async).loading"
+    [nzNoResult]="noResultText"
+    [nzFrontPagination]="false"
+    [nzScroll]="{ y: '45vh' }"
+    nzTableLayout="fixed"
+    nzShowPagination="false"
+    (nzQueryParams)="changeSort($event)"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="50px"></th>
+        <th nzColumnKey="name" [nzSortFn]="true">Name</th>
+        <th>Phone</th>
+        <th nzColumnKey="timestamp" [nzSortFn]="true">Created</th>
+        <th nzWidth="50px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let item of nzTable.data">
+        <tr>
+          <td [nzExpand]="expandSet.has(item.id)" (nzExpandChange)="onExpandChange(item.id, $event)"></td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.phone | mask : '(00) 0000 0000' }}</td>
+          <td>{{ item.timestamp | timestamp | date : 'medium' }}</td>
+          <td class="flex justify-center">
+            <button class="flex justify-center" nz-button nzType="text" nzShape="circle" (click)="open(FormType.EDIT, item)">
+              <span nz-icon nzType="edit"></span>
+            </button>
+          </td>
+        </tr>
+        <tr [nzExpand]="expandSet.has(item.id)">
+          <ul *ngFor="let vehicle of item.vehicles">
+            <li>{{ vehicle.type }}</li>
+          </ul>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+  <app-table-pagination [paginationControl]="paginationControl" [paginationPayload]="paginationPayload$ | async"></app-table-pagination>
+</ng-container>
+
+<ng-template #loading>
+  <div class="mt-[50px]">
+    <app-loader></app-loader>
+  </div>
+</ng-template>

@@ -1,0 +1,35 @@
+.action-bar {
+  display: flex;
+  justify-content: end;
+  padding-top: 10px;
+}
+
+.checkbox input {
+  margin-left: 10px !important;
+}
+
+.submit-button {
+  font-family: 'Open Sans';
+  font-size: 1.3em;
+  letter-spacing: 2px;
+  font-weight: 500;
+  padding: 10px 30px;
+  background-color: rgb(41, 79, 139);
+  color: white;
+}
+
+.submit-button:hover {
+  opacity: 0.9;
+}
+
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-field {
+  padding-bottom: 10px;
+  width: 300px;
+}
